@@ -1,7 +1,7 @@
 # K2Pus-UNCURSED
 UNCURSING your K2+ with config settings and Orca mods.
 
-This is a step-by-step guide for making Creality K2 Plus less cursed. 
+This is a **STEP-BY-STEP** guide for making Creality K2 Plus less cursed. 
 
 It will:
 - Speed up the calibrations.
@@ -9,19 +9,41 @@ It will:
 - Heat up the bed BEFORE it probes it, so the taco bed is correctly probed.
 - Other improvements.
 
-Require changes to both Orca and the printer configs. 
-
-## Do it step by step!
-
-Save backups of everything you change in Orca.
-Do it at your own risk! 
+Require changes to both Orca and the printer configs.  
 
 My setup:  
 Orca 2.3.2 RC2  
 K2 Plus firmware V1.1.3.13
+<br>
+<br>
+<br>
 
-# Orca Filament settings
-## Filament start G-code (Adjust your Z-offset in the last row, search online on how to figure out your z-offset, it will be different for different filaments)
+> [!IMPORTANT]
+> There are no backups in this guide, if something goes wrong - it's easier to just factory reset the printer. 
+
+<br>
+
+**!!! DO IT AT YOUR OWN RISK !!!**
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+# Orca - Filament settings  
+<br>
+
+## Filament start G-code  
+
+> [!TIP]
+> Adjust your Z-offset in the last row, search online on how to find your z-offset, it will be different for different filaments
+<br>
+
 
     ; filament start gcode
     {if (position[2] > first_layer_height) }
@@ -30,13 +52,23 @@ K2 Plus firmware V1.1.3.13
     M104 S[first_layer_temperature]
     {endif}
     SET_GCODE_OFFSET Z=0.088
+<br>
+<br>
 
-##Filament end G-code (Not required, it's just what I use)
+## Filament end G-code  
+
+> [!NOTE]
+> Not required, it's just what I use
+<br>
+
 
     ; filament end gcode 
     SET_GCODE_OFFSET Z=0
+<br>
+<br>
+<br>
 
-# Orca Printer settings
+# Orca - Printer settings
 ## Machine G-code
     ; MINX = {first_layer_print_min[0]}
     ; MINY = {first_layer_print_min[1]}
@@ -58,4 +90,28 @@ K2 Plus firmware V1.1.3.13
     G92 E0
     G1 Z1 F600
 
-  
+
+# Install Python if it's not installed on your PC 
+Official website https://www.python.org/downloads
+<br>
+<br>
+
+# Orca - Process panel > Others tab
+Once you have Python installed Download [this Orca_fix Python script](Orca_fix.py) and place it in your preferred location
+
+Now paste the corresponding paths into this code
+
+    "path to python.exe" "path to Orca_fix.py";
+
+Here's an **EXAMPLE** of how it should look like
+
+    "C:\Users\USERNAME\AppData\Local\Microsoft\WindowsApps\python.exe" "F:\3D Print\Post-processing scripts\Orca_fix.py";
+<br>
+<br>
+
+Once you edited it with **YOUR** correct paths - paste it into the **"Post-processing Scripts"** input field in Orca's **Process panel > Others tab**  
+<br>
+
+> [!TIP]
+> To verify it works - slice something and either send the job or save the G-Code file - it should briefly open a CMD window while the Python script modifies the G-code file.
+

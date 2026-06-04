@@ -19,11 +19,19 @@ My setup:
 
 > [!IMPORTANT]
 > There are no backups in this guide, if something goes wrong - it's easier to just factory reset the printer. 
+<br>
 
+> [!IMPORTANT]
+> <img width="139" height="129" alt="image" src="https://github.com/user-attachments/assets/2d4f1ea6-05ab-4d1b-8bd8-9f218270efe1" />  
+> Use this button to copy all the code and commands from this guide, don't try copying it by selecting the text as it will break formatting required for some commands.
+<br>
+<br>
 <br>
 
 
-# <p align="center"> !!! DO IT AT YOUR OWN RISK !!!
+
+
+### <p align="center"> !!! DO EVERYTHING AT YOUR OWN RISK !!!
 
 </p>
 
@@ -108,6 +116,10 @@ Once Python is installed download [this Orca_fix Python script](Orca_fix.py) and
 <br>
 
 # <p align="center"> Orca - Process panel > Others tab
+> [!IMPORTANT]
+> Enable Developer mode in Orca Preferences.
+
+<br>
 
 Now paste the corresponding paths into this code
 

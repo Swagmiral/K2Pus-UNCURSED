@@ -22,8 +22,8 @@ My setup:
 <br>
 
 > [!IMPORTANT]
-> <img width="139" height="129" alt="image" src="https://github.com/user-attachments/assets/2d4f1ea6-05ab-4d1b-8bd8-9f218270efe1" />  
-> Use this button to copy all the code and commands from this guide, don't try copying it by selecting the text as it will break formatting required for some commands.
+> <img width="118" height="118" alt="image" src="https://github.com/user-attachments/assets/f694e290-e68e-40fc-a62c-1241ab23725c" />  
+> Use this button to copy all the code and commands from this guide, don't try copying it by selecting the text as it will break formatting.
 <br>
 <br>
 <br>

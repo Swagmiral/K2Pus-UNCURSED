@@ -11,8 +11,9 @@ It will:
 Requires changes to both Orca and the printer configs.  
 
 My setup:  
-Orca 2.3.2 RC2  
-K2 Plus firmware V1.1.3.13
+- Windows 11  
+- Orca 2.3.2 RC2  
+- K2 Plus firmware V1.1.3.13
 <br>
 <br>
 
@@ -21,7 +22,11 @@ K2 Plus firmware V1.1.3.13
 
 <br>
 
-**!!! DO IT AT YOUR OWN RISK !!!**
+
+# <p align="center"> !!! DO IT AT YOUR OWN RISK !!!
+
+</p>
+
 <br>
 <br>
 <br>
@@ -33,10 +38,12 @@ K2 Plus firmware V1.1.3.13
 
 
 
-# Orca - Filament settings  
+# <p align="center"> Orca - Filament settings  
+</p>
 <br>
 
-## Filament start G-code  
+### Filament start G-code  
+<br>
 
 > [!TIP]
 > Adjust your Z-offset in the last row, search online on how to find your z-offset, it will be different for different filaments
@@ -53,7 +60,8 @@ K2 Plus firmware V1.1.3.13
 <br>
 <br>
 
-## Filament end G-code  
+### Filament end G-code  
+<br>
 
 > [!NOTE]
 > Not required, it's just what I use
@@ -66,8 +74,10 @@ K2 Plus firmware V1.1.3.13
 <br>
 <br>
 
-# Orca - Printer settings
-## Machine G-code
+# <p align="center"> Orca - Printer settings
+</p>
+
+### Machine G-code
     ; MINX = {first_layer_print_min[0]}
     ; MINY = {first_layer_print_min[1]}
     ; MAXX = {first_layer_print_max[0]}
@@ -89,17 +99,20 @@ K2 Plus firmware V1.1.3.13
     G1 Z1 F600
 
 
-# Install Python if it's not installed on your PC 
-Official website https://www.python.org/downloads
+# <p align="center"> Install Python if it's not installed on your PC 
+Official website https://www.python.org/downloads  
 <br>
+Once Python is installed download [this Orca_fix Python script](Orca_fix.py) and place it in your preferred location
+
+
 <br>
 
-# Orca - Process panel > Others tab
-Once you have Python installed Download [this Orca_fix Python script](Orca_fix.py) and place it in your preferred location
+# <p align="center"> Orca - Process panel > Others tab
 
 Now paste the corresponding paths into this code
 
     "path to python.exe" "path to Orca_fix.py";
+<br>
 
 Here's an **EXAMPLE** of how it should look like
 

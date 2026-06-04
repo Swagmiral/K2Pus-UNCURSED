@@ -1,7 +1,6 @@
 # K2Pus-UNCURSED
-UNCURSING your K2+ with config settings and Orca mods.
 
-This is a **STEP-BY-STEP** guide for making Creality K2 Plus less cursed. 
+This is a **STEP-BY-STEP** guide for making Creality K2 Plus less cursed.  
 
 It will:
 - Speed up the calibrations.
@@ -9,12 +8,11 @@ It will:
 - Heat up the bed BEFORE it probes it, so the taco bed is correctly probed.
 - Other improvements.
 
-Require changes to both Orca and the printer configs.  
+Requires changes to both Orca and the printer configs.  
 
 My setup:  
 Orca 2.3.2 RC2  
 K2 Plus firmware V1.1.3.13
-<br>
 <br>
 <br>
 
@@ -179,7 +177,7 @@ In case of an error remove the old SSH (make sure the IP is correct)
 ### Always heat up the bed to the target temp before calibration
     sed -i 's/if target_temp > default_bed_temp:/if target_temp > 0:/' /usr/share/klipper/klippy/extras/virtual_sdcard.py
 
-Take bed temp from the first bed temp found in the gcode file before the calibrations start
+### Take bed temp from the first bed temp found in the gcode file before the calibrations start
 
     cat > /tmp/patch_bed_temp.py << 'EOF'
     path = "/usr/share/klipper/klippy/extras/virtual_sdcard.py"
@@ -230,7 +228,7 @@ Take bed temp from the first bed temp found in the gcode file before the calibra
 
 <br>
 
-Start chamber heater before calibrations and turn off fans if the chamber heating is on
+### Start chamber heater before calibrations and turn off fans if the chamber heating is on
 
     cat > /tmp/patch_macro.py << 'EOF'
     path = "/mnt/UDISK/printer_data/config/gcode_macro.cfg"
@@ -264,7 +262,7 @@ Start chamber heater before calibrations and turn off fans if the chamber heatin
 
 <br>
 
-Take chamber temp from the first s191 found instead of the ones at the file end
+### Take chamber temp from the first s191 found instead of the ones at the file end
 
     cat > /tmp/patch_chamber.py << 'EOF'
     path = "/usr/share/klipper/klippy/extras/virtual_sdcard.py"
@@ -319,13 +317,13 @@ Take chamber temp from the first s191 found instead of the ones at the file end
 
 <br>
 
-Reduce bed temp hysteresis from 10C to 5C (optional)
+### Reduce bed temp hysteresis from 10C to 5C (optional)
 
     sed -i '/\[verify_heater heater_bed\]/,/\[/{s/^hysteresis: 10$/hysteresis: 5/}' /mnt/UDISK/printer_data/config/printer.cfg
 
 <br>
 
-**Speed up Bed mesh**  
+### **Speed up Bed mesh**  
 
 Speed 700 (default 100), probe count 9x9, raise between probes to 3mm (default 5), speed up z homing
 
@@ -338,39 +336,38 @@ Speed 700 (default 100), probe count 9x9, raise between probes to 3mm (default 5
 
 <br>
 
-Do Adaptive Bed Mesh before each print
+### Do Adaptive Bed Mesh before each print
 
-Check how many such rows are there (should be 1)  
+1. Check how many such rows are there (should be 1)  
 
-    grep -c "bed_mesh_calibate_state == False and" /usr/share/klipper/klippy/extras/virtual_sdcard.py
-
-<br>
-
-Remove condition for skipping Adaptive Bed Mesh before each print (do Adaptive Bed Mesh always)  
-<br>
-
-    sed -i 's/self\.bed_mesh_calibate_state == False and //' /usr/share/klipper/klippy/extras/virtual_sdcard.py
+        grep -c "bed_mesh_calibate_state == False and" /usr/share/klipper/klippy/extras/virtual_sdcard.py
 
 <br>
 
-Check if the command worked  
+2. Remove condition for skipping Adaptive Bed Mesh before each print (do Adaptive Bed Mesh always)  
+<br>
 
-    sed -n '528p' /usr/share/klipper/klippy/extras/virtual_sdcard.py
+        sed -i 's/self\.bed_mesh_calibate_state == False and //' /usr/share/klipper/klippy/extras/virtual_sdcard.py
 
 <br>
 
-remove.Pyc so it recompiles python  
+3. Check if the command worked  
 
-    rm /usr/share/klipper/klippy/extras/virtual_sdcard.pyc
-
-<br>
-
-Wait for the bed to reach its target temp before homing and Bed Mesh  
+        sed -n '528p' /usr/share/klipper/klippy/extras/virtual_sdcard.py
 
 <br>
 
-    sed -i '/\[gcode_macro START_PRINT\]/,/^\[/ {/^    M190 S{params.BED_TEMP}$/d; /^    G28$/i\    M190 S{params.BED_TEMP}
-    }' /mnt/UDISK/printer_data/config/gcode_macro.cfg
+4. remove.Pyc so it recompiles python  
+
+        rm /usr/share/klipper/klippy/extras/virtual_sdcard.pyc
+
+<br>
+
+5. Wait for the bed to reach its target temp before homing and Bed Mesh  
+
+
+        sed -i '/\[gcode_macro START_PRINT\]/,/^\[/ {/^    M190 S{params.BED_TEMP}$/d; /^    G28$/i\    M190 S{params.BED_TEMP}
+        }' /mnt/UDISK/printer_data/config/gcode_macro.cfg
 
 <br>
 
@@ -382,7 +379,9 @@ Don't wait for bed temp before homing and Bed Mesh (roll back to default)
     sed -i '/\[gcode_macro START_PRINT\]/,/^\[/ {/^    M190 S{params.BED_TEMP}$/d}' /mnt/UDISK/printer_data/config/gcode_macro.cfg
 
 <br>
+<br>
+<br>
 
-Remove camera CAMNAME from Fluidd (in case you have a bug when you can't remove it using Fluidd UI) replace it with your camera name  
+Remove camera CAMNAME from Fluidd (in case you have a bug when you can't remove it using Fluidd UI) replace it with **YOUR** camera name  
 
     /usr/share/moonraker-env/bin/python -c "import urllib.request,urllib.parse; name='CAMNAME'; url='http://127.0.0.1:7125/server/webcams/item?name='+urllib.parse.quote(name,safe=''); req=urllib.request.Request(url, method='DELETE'); print(urllib.request.urlopen(req, timeout=5).read().decode())"
